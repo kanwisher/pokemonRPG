@@ -1,0 +1,58 @@
+body {
+    font-family: "comic sans ms";
+    background-color: lime;
+    color: red;
+}
+.container {
+    border: 2px red solid;
+}
+
+header {
+    text-align: center;
+    border: solid 2px pink;
+    font-family: "comic sans ms";
+}
+
+#hero {
+    border: 2px blue solid;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+#enemySelection {
+    @extend #hero;
+    border-color: green;
+    height: 200px;
+}
+
+#enemy {
+    @extend #hero;
+    border-color: orange;
+    height: 200px;
+}
+
+#message {
+    @extend #hero;
+    border-color: purple;
+    height: 200px;
+}
+
+.character {
+    border: 2px solid yellow;
+    text-align: center;
+}
+
+.selectable:hover {
+    color: green;
+    cursor: pointer;
+}
+
+.poke_image {
+    height: 120px;
+    width: 200px;
+}
+
+footer {
+    text-align: center;
+}
