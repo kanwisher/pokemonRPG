@@ -8,10 +8,12 @@
   <body>
     <div class="container">
         <header>
-            <h1><a href="http://www.angelfire.com/ky/SquirtleKyu/">Pokemon RPG</a></h1>
+            <a href="http://www.angelfire.com/ky/SquirtleKyu/"><img src="assets/images/logo.gif" alt="pokemon-logo"></img></a>
         </header>        
         <!--   section#hero>.character*4>h3.poke_name+img.poke_image+h4.hp   //emmet -->
-        <section id="hero">
+        <h1>Your Pokemon</h1>
+        <section id="heroBox">
+                            
                 <div class="character selectable" id="pikachu">
                     <h3 class="poke_name">Pikachu</h3>
                     <img src="assets/images/pika.jpg" width="500" height="500" alt="pikachu" class="poke_image">
@@ -33,13 +35,18 @@
                     <h4 class="hp"></h4>
                 </div>
         </section>
-        <section id="enemySelection"></section>
-        <section id="enemy"></section>
-        <section id="message"></section>
+        <h1>Pokemons Available to attack</h1>
+        <section id="enemySelectionBox"></section>
+        <h1>Current Opponent</h1>
+        <section id="enemyBox"></section>
+        <h1>Messages</h1>
+        <section id="messageBox">
+            <p>Please select a pokemon to play as<p>
+        </section>
         <footer>
             &copy David Kanwisher 1999
         </footer>
-        <audio autoplay loop>
+        <audio loop controls>
             <source src="assets/sounds/pokemon.mp3" type="audio/mp3">
             Your browser does not support the audio element.
         </audio>

@@ -8,34 +8,41 @@ body {
 }
 
 header {
-    text-align: center;
-    border: solid 2px pink;
-    font-family: "comic sans ms";
+    display: flex;
+    justify-content: center;
 }
 
-#hero {
+h1 {
+    text-align: center;
+}
+
+
+
+#heroBox {
     border: 2px blue solid;
     display: flex;
     justify-content: space-around;
+    min-height: 100px;
 
 }
 
-#enemySelection {
-    @extend #hero;
+#enemySelectionBox {
+    @extend #heroBox;
     border-color: green;
-    height: 200px;
 }
 
-#enemy {
-    @extend #hero;
+#enemyBox {
+    @extend #heroBox;
     border-color: orange;
-    height: 200px;
 }
 
-#message {
-    @extend #hero;
+#messageBox {
+    @extend #heroBox;
     border-color: purple;
-    height: 200px;
+    justify-content: center;
+        p {
+            padding: 20px 0;
+        }
 }
 
 .character {
@@ -46,11 +53,12 @@ header {
 .selectable:hover {
     color: green;
     cursor: pointer;
+    filter: invert(100%);
 }
 
 .poke_image {
-    height: 120px;
-    width: 200px;
+    height: 100px;
+    max-width: 100%;
 }
 
 footer {

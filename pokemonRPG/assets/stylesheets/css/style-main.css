@@ -7,26 +7,29 @@ body {
   border: 2px red solid; }
 
 header {
-  text-align: center;
-  border: solid 2px pink;
-  font-family: "comic sans ms"; }
+  display: flex;
+  justify-content: center; }
 
-#hero, #enemySelection, #enemy, #message {
+h1 {
+  text-align: center; }
+
+#heroBox, #enemySelectionBox, #enemyBox, #messageBox {
   border: 2px blue solid;
   display: flex;
-  justify-content: space-around; }
+  justify-content: space-around;
+  min-height: 100px; }
 
-#enemySelection {
-  border-color: green;
-  height: 200px; }
+#enemySelectionBox {
+  border-color: green; }
 
-#enemy {
-  border-color: orange;
-  height: 200px; }
+#enemyBox {
+  border-color: orange; }
 
-#message {
+#messageBox {
   border-color: purple;
-  height: 200px; }
+  justify-content: center; }
+  #messageBox p {
+    padding: 20px 0; }
 
 .character {
   border: 2px solid yellow;
@@ -34,11 +37,12 @@ header {
 
 .selectable:hover {
   color: green;
-  cursor: pointer; }
+  cursor: pointer;
+  filter: invert(100%); }
 
 .poke_image {
-  height: 120px;
-  width: 200px; }
+  height: 100px;
+  max-width: 100%; }
 
 footer {
   text-align: center; }
