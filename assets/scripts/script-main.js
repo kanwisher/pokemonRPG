@@ -1,3 +1,4 @@
+"use strict"
 // prompt(`
 
 
@@ -40,24 +41,28 @@ const pokemonApp = (function(){
     let fighter = null;
     let opponent = null;
 
-    function Pokemon (name, hp, baseAtk, counterAtk) {
-        this.name = name;
-        this.hp = hp;
-        this.baseAtk = baseAtk;
-        this.counterAtk = counterAtk;
-        this.attack = baseAtk;
-    }
 
-    Pokemon.prototype.battle = (opponent) => {
-        opponent.hp -= this.attack;
-        this.hp -= opponent.counterAtk;
-    }
 
     const createPokemon = () => {
-        pokemonArray.push(new Pokemon('pikachu', 100, 15, 20));
-        pokemonArray.push(new Pokemon('squirtle', 100, 15, 20));
-        pokemonArray.push(new Pokemon('charmander', 100, 15, 20));
-        pokemonArray.push(new Pokemon('bulbasaur', 100, 15, 20));
+
+        function Pokemon (obj) {
+            this.name = obj.name;
+            this.hp = obj.hp;
+            this.baseAtk = obj.baseAtk;
+            this.counterAtk = obj.counterAtk;
+            this.attack = obj.baseAtk;
+        }
+    
+        Pokemon.prototype.battle = (opponent) => {
+            opponent.hp -= this.attack;
+            this.hp -= opponent.counterAtk;
+        }
+
+        characters.forEach((character) => {
+            pokemonArray.push(new Pokemon(character));
+        });
+
+        console.log(pokemonArray);
     }
 
     const findPokemon = (name) => {
@@ -69,17 +74,36 @@ const pokemonApp = (function(){
 
     const addEventListeners = () => {        
         const pokeDiv = document.querySelectorAll(".character");
-        for(let i = 0; i < pokeImage.length; i++){
-            pokeImage[i].addEventListener('click', e => {
-                const selected = e.target;
-                if(!fighter){
-                    fighter = findPokemon(selected.getAttribute('alt'));
-                }else if(!opponent){
-                    opponent = findPokemon(selected.getAttribute('alt'));
-                }
-            });
+        for(let i = 0; i < pokeDiv.length; i++){
+            pokeDiv[i].addEventListener('click', clickLogic);
         }
-    }   
+    }
+
+    const clickLogic = (e) => {
+        const divClicked = e.currentTarget; //http://joequery.me/code/event-target-vs-event-currenttarget-30-seconds/
+        if(!fighter){
+            fighterSelected(divClicked);
+            updateMessage("Select an opponent");
+        }else if(!opponent && e.currentTarget.getAttribute("status") !== "hero"){
+            opponent = findPokemon(divClicked.id);
+            updateMessage("Fight to the death");
+        }
+    }
+
+    const fighterSelected = (divClicked) => {
+        fighter = findPokemon(divClicked.id);
+        divClicked.classList.add("hero");
+        divClicked.classList.remove("selectable");
+        const selection = document.querySelectorAll(".character:not('.hero')");
+        console.log(selection);
+        document.getElementById("enemySelectionBox").appendChild(selection);
+
+    }
+
+    const updateMessage = (text) => {
+        const messageBox = document.getElementById("messageBox");
+        messageBox.innerHTML = `<p> ${text} </p>`;
+    }
     
     return init;
 })()
