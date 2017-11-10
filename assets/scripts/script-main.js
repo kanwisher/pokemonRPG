@@ -32,6 +32,10 @@
 
 const pokemonApp = (function(){
 
+    const enemySelectionDiv = document.getElementById("enemySelectionBox");
+    const enemyBox = document.getElementById("enemyBox");
+    
+
     function init(){
         addEventListeners();
         createPokemon();
@@ -85,7 +89,7 @@ const pokemonApp = (function(){
             fighterSelected(divClicked);
             updateMessage("Select an opponent");
         }else if(!opponent && !divClicked.classList.contains('hero')){
-            opponent = findPokemon(divClicked.id);
+            opponentSelected(divClicked);
             updateMessage("Fight to the death");
         }
     }
@@ -94,11 +98,20 @@ const pokemonApp = (function(){
         fighter = findPokemon(divClicked.id);
         divClicked.classList.add("hero");
         divClicked.classList.remove("selectable");
-        const enemySelection = document.querySelectorAll(".character:not(.hero)");
-        const enemySelectionDiv = document.getElementById("enemySelectionBox");
+        const enemySelection = document.querySelectorAll(".character:not(.hero)"); //.hero not in quotes
         enemySelection.forEach((enemy) => {
             enemySelectionDiv.appendChild(enemy);
         });
+    }
+
+    const opponentSelected = (divClicked) => {
+        opponent = findPokemon(divClicked.id);
+        divClicked.classList.add("enemy");
+        document.querySelectorAll(".character").forEach((character) => {
+            character.classList.remove("selectable");
+        });
+                
+        enemyBox.appendChild(divClicked);
     }
 
     const updateMessage = (text) => {
