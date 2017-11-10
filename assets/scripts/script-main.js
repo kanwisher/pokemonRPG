@@ -84,7 +84,7 @@ const pokemonApp = (function(){
         if(!fighter){
             fighterSelected(divClicked);
             updateMessage("Select an opponent");
-        }else if(!opponent && e.currentTarget.getAttribute("status") !== "hero"){
+        }else if(!opponent && !divClicked.classList.contains('hero')){
             opponent = findPokemon(divClicked.id);
             updateMessage("Fight to the death");
         }
@@ -94,10 +94,11 @@ const pokemonApp = (function(){
         fighter = findPokemon(divClicked.id);
         divClicked.classList.add("hero");
         divClicked.classList.remove("selectable");
-        const selection = document.querySelectorAll(".character:not('.hero')");
-        console.log(selection);
-        document.getElementById("enemySelectionBox").appendChild(selection);
-
+        const enemySelection = document.querySelectorAll(".character:not(.hero)");
+        const enemySelectionDiv = document.getElementById("enemySelectionBox");
+        enemySelection.forEach((enemy) => {
+            enemySelectionDiv.appendChild(enemy);
+        });
     }
 
     const updateMessage = (text) => {
