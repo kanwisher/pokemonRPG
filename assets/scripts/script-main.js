@@ -34,6 +34,7 @@ const pokemonApp = (function(){
 
     const enemySelectionDiv = document.getElementById("enemySelectionBox");
     const enemyBox = document.getElementById("enemyBox");
+    const attackButton = document.getElementById("attackButton");
     
 
     function init(){
@@ -79,11 +80,14 @@ const pokemonApp = (function(){
     const addEventListeners = () => {        
         const pokeDiv = document.querySelectorAll(".character");
         for(let i = 0; i < pokeDiv.length; i++){
-            pokeDiv[i].addEventListener('click', clickLogic);
+            pokeDiv[i].addEventListener('click', pokemonClick);
         }
+
+        
+        attackButton.addEventListener('click', attackClick);
     }
 
-    const clickLogic = (e) => {
+    const pokemonClick = (e) => {
         const divClicked = e.currentTarget; //http://joequery.me/code/event-target-vs-event-currenttarget-30-seconds/
         if(!fighter){
             fighterSelected(divClicked);
@@ -92,6 +96,10 @@ const pokemonApp = (function(){
             opponentSelected(divClicked);
             updateMessage("Fight to the death");
         }
+    }
+
+    const attackClick = () => {
+        alert("you attacked!");
     }
 
     const fighterSelected = (divClicked) => {
@@ -112,12 +120,15 @@ const pokemonApp = (function(){
         });
                 
         enemyBox.appendChild(divClicked);
+        attackButton.style.visibility = "visible";
     }
 
     const updateMessage = (text) => {
         const messageBox = document.getElementById("messageBox");
         messageBox.innerHTML = `<p> ${text} </p>`;
     }
+
+
     
     return init;
 })()

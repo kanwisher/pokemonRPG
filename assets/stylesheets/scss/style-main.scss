@@ -16,14 +16,11 @@ h1 {
     text-align: center;
 }
 
-
-
 #heroBox {
     border: 2px blue solid;
     display: flex;
     justify-content: space-around;
     min-height: 100px;
-
 }
 
 #enemySelectionBox {
@@ -43,6 +40,11 @@ h1 {
         p {
             padding: 20px 0;
         }
+}
+
+button {
+    display: block;
+    margin: 0 auto;
 }
 
 .character {
