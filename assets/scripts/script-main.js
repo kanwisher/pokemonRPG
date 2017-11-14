@@ -1,4 +1,4 @@
-"use strict"
+// "use strict"
 // prompt(`
 
 
@@ -58,8 +58,9 @@ const pokemonApp = (function(){
             this.attack = obj.baseAtk;
         }
     
-        Pokemon.prototype.battle = (opponent) => {
+        Pokemon.prototype.battle = function(opponent) { //arrow function screws with 'this', see #3 http://wesbos.com/arrow-function-no-no/
             opponent.hp -= this.attack;
+            this.attack += this.baseAtk;
             this.hp -= opponent.counterAtk;
         }
 
@@ -87,7 +88,7 @@ const pokemonApp = (function(){
         attackButton.addEventListener('click', attackClick);
     }
 
-    const pokemonClick = (e) => {
+    const pokemonClick = (e) => { //see #1 //http://wesbos.com/arrow-function-no-no/
         const divClicked = e.currentTarget; //http://joequery.me/code/event-target-vs-event-currenttarget-30-seconds/
         if(!fighter){
             fighterSelected(divClicked);
@@ -98,8 +99,10 @@ const pokemonApp = (function(){
         }
     }
 
-    const attackClick = () => {
-        alert("you attacked!");
+    const attackClick = () => { //see #1 //http://wesbos.com/arrow-function-no-no/
+        
+        fighter.battle(opponent);
+        console.log(pokemonArray);
     }
 
     const fighterSelected = (divClicked) => {
