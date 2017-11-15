@@ -102,7 +102,7 @@ const pokemonApp = (function(){
     const attackClick = () => { //see #1 //http://wesbos.com/arrow-function-no-no/
         
         fighter.battle(opponent);
-        console.log(pokemonArray);
+        checkStatus();
     }
 
     const fighterSelected = (divClicked) => {
@@ -129,6 +129,18 @@ const pokemonApp = (function(){
     const updateMessage = (text) => {
         const messageBox = document.getElementById("messageBox");
         messageBox.innerHTML = `<p> ${text} </p>`;
+    }
+
+    const checkStatus = () => {
+        if(fighter.hp <= 0){
+            gameOver();
+        } else if(opponent.hp <= 0){
+
+        }
+    }
+
+    const gameOver = () => {
+        alert("you lose");
     }
 
 
