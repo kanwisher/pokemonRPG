@@ -40,6 +40,7 @@ const pokemonApp = (function(){
     function init(){
         addEventListeners();
         createPokemon();
+        updateHealth();
     }
 
     const pokemonArray = [];
@@ -71,6 +72,12 @@ const pokemonApp = (function(){
         console.log(pokemonArray);
     }
 
+    const updateHealth = () => {
+        pokemonArray.forEach((pokemon) => {
+            document.querySelector(`#${pokemon.name} .hp`).textContent = pokemon.hp;
+        })
+    }
+
     const findPokemon = (name) => {
         const filtered = pokemonArray.filter((el) => {
             return el.name === name;
@@ -82,9 +89,7 @@ const pokemonApp = (function(){
         const pokeDiv = document.querySelectorAll(".character");
         for(let i = 0; i < pokeDiv.length; i++){
             pokeDiv[i].addEventListener('click', pokemonClick);
-        }
-
-        
+        }        
         attackButton.addEventListener('click', attackClick);
     }
 
@@ -100,9 +105,9 @@ const pokemonApp = (function(){
     }
 
     const attackClick = () => { //see #1 //http://wesbos.com/arrow-function-no-no/
-        
         fighter.battle(opponent);
-        checkStatus();
+        updateHealth();
+        checkAlive();        
     }
 
     const fighterSelected = (divClicked) => {
@@ -131,19 +136,48 @@ const pokemonApp = (function(){
         messageBox.innerHTML = `<p> ${text} </p>`;
     }
 
-    const checkStatus = () => {
+    const removePokemon = (name) => {
+
+        const opponentDiv = document.getElementById(opponent.name);
+        opponentDiv.parentElement.removeChild(opponentDiv);
+
+        var index = pokemonArray.map((pokeObj) => {
+            return pokeObj.name;
+        }).indexOf(name);
+
+        pokemonArray.splice(index, 1);
+        opponent = null;
+    }
+
+    const checkAlive = () => {
         if(fighter.hp <= 0){
             gameOver();
         } else if(opponent.hp <= 0){
-
+            killOpponent();
         }
+    }
+
+    const killOpponent = () => {       
+        removePokemon(opponent.name);
+        attackButton.style.visibility = "hidden";  
+        if(pokemonArray.length === 1){
+            gameWin();
+        } else {  
+        const enemySelection = document.querySelectorAll(".character:not(.hero)"); //.hero not in quotes
+        enemySelection.forEach((enemy) => {
+            enemy.classList.add("selectable");
+        });
+        updateMessage("Select an opponent");
+        }              
     }
 
     const gameOver = () => {
         alert("you lose");
     }
 
-
+    const gameWin = () => {
+        updateMessage("You win!");
+    }
     
     return init;
 })()
