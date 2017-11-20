@@ -32,6 +32,9 @@
 
 const pokemonApp = (function(){
 
+    const pokemonArray = [];
+    let fighter = null;
+    let opponent = null;
     const enemySelectionDiv = document.getElementById("enemySelectionBox");
     const enemyBox = document.getElementById("enemyBox");
     const attackButton = document.getElementById("attackButton");
@@ -43,9 +46,7 @@ const pokemonApp = (function(){
         updateHealth();
     }
 
-    const pokemonArray = [];
-    let fighter = null;
-    let opponent = null;
+
 
 
 
