@@ -46,9 +46,30 @@ const pokemonApp = (function(){
         updateHealth();
     }
 
+    const addEventListeners = () => {        
+        const pokeDiv = document.querySelectorAll(".character");
+        for(let i = 0; i < pokeDiv.length; i++){
+            pokeDiv[i].addEventListener('click', pokemonClick);
+        }        
+        attackButton.addEventListener('click', attackClick);
 
-
-
+        const pokemonClick = (e) => { //see #1 //http://wesbos.com/arrow-function-no-no/
+            const divClicked = e.currentTarget; //http://joequery.me/code/event-target-vs-event-currenttarget-30-seconds/
+            if(!fighter){
+                fighterSelected(divClicked);
+                updateMessage("Select an opponent");
+            }else if(!opponent && !divClicked.classList.contains('hero')){
+                opponentSelected(divClicked);
+                updateMessage("Fight to the death");
+            }
+        }
+    
+        const attackClick = () => { //see #1 //http://wesbos.com/arrow-function-no-no/
+            fighter.battle(opponent);
+            updateHealth();
+            checkAlive();        
+        }
+    }
 
     const createPokemon = () => {
 
@@ -84,33 +105,8 @@ const pokemonApp = (function(){
             return el.name === name;
         });
         return filtered[0]
-    }    
-
-    const addEventListeners = () => {        
-        const pokeDiv = document.querySelectorAll(".character");
-        for(let i = 0; i < pokeDiv.length; i++){
-            pokeDiv[i].addEventListener('click', pokemonClick);
-        }        
-        attackButton.addEventListener('click', attackClick);
     }
-
-    const pokemonClick = (e) => { //see #1 //http://wesbos.com/arrow-function-no-no/
-        const divClicked = e.currentTarget; //http://joequery.me/code/event-target-vs-event-currenttarget-30-seconds/
-        if(!fighter){
-            fighterSelected(divClicked);
-            updateMessage("Select an opponent");
-        }else if(!opponent && !divClicked.classList.contains('hero')){
-            opponentSelected(divClicked);
-            updateMessage("Fight to the death");
-        }
-    }
-
-    const attackClick = () => { //see #1 //http://wesbos.com/arrow-function-no-no/
-        fighter.battle(opponent);
-        updateHealth();
-        checkAlive();        
-    }
-
+    
     const fighterSelected = (divClicked) => {
         fighter = findPokemon(divClicked.id);
         divClicked.classList.add("hero");
